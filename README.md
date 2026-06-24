@@ -15,8 +15,11 @@ A hospital management system for patient discharge and bed allocation.
 <img width="519" height="241" alt="image" src="https://github.com/user-attachments/assets/0a3d6c5d-b849-4dbc-b4cf-e2b26ba52acf" />
 
 <img width="524" height="239" alt="image" src="https://github.com/user-attachments/assets/978e28b3-c605-464f-ab21-5bdc32696d5b" />
+<br>
   # New ward add
 <img width="550" height="254" alt="image" src="https://github.com/user-attachments/assets/f4a1ea72-b526-4202-af5a-3f3bda4ba62f" />
+<br></br>
+
   # Doctor Registration
   <img width="554" height="255" alt="image" src="https://github.com/user-attachments/assets/aaef6f2c-bfe9-4368-a061-733c64bb6083" />
   # doctor request  to admin 
