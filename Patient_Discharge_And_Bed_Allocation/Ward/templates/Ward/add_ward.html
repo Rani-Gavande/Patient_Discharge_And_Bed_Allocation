@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Ward</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+            min-height: 100vh;
+            padding: 3rem 1rem;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .icon-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 4rem;
+            height: 4rem;
+            background: #4f46e5;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #4b5563;
+            font-size: 1rem;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4f46e5 0%, #9333ea 50%, #ec4899 100%);
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+        }
+
+        .input-icon.hash {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .textarea-icon {
+            top: 0.75rem;
+            transform: none;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            padding-right: 2.5rem;
+        }
+
+        textarea {
+            resize: none;
+            padding-top: 0.75rem;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #9ca3af;
+        }
+
+        /* Radio Group */
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .radio-label input[type="radio"] {
+            width: 1rem;
+            height: 1rem;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+            accent-color: #4f46e5;
+        }
+
+        .radio-label span {
+            margin-left: 0.5rem;
+            font-size: 0.875rem;
+            color: #374151;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            padding-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            flex: 1;
+            background: #4f46e5;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #4338ca;
+        }
+
+        .btn-primary:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #d1d5db;
+            background: white;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #f9fafb;
+        }
+
+        .btn-secondary:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.2);
+        }
+
+        /* Success Overlay */
+        .success-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .success-overlay.show {
+            display: flex;
+        }
+
+        .success-content {
+            text-align: center;
+        }
+
+        .success-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 5rem;
+            height: 5rem;
+            background: #d1fae5;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            animation: bounce 1s infinite;
+        }
+
+        .success-icon svg {
+            color: #059669;
+        }
+
+        .success-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-content p {
+            color: #4b5563;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(-10%);
+            }
+            50% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Info Card */
+        .info-card {
+            margin-top: 1.5rem;
+            background: #dbeafe;
+            border: 1px solid #93c5fd;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .info-icon {
+            flex-shrink: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 0.125rem;
+        }
+
+        .info-content h4 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #1e3a8a;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-content p {
+            font-size: 0.875rem;
+            color: #1e40af;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+
+            .form-card {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-secondary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="icon-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
+                    <path d="M9 22v-4h6v4"/>
+                    <path d="M8 6h.01"/>
+                    <path d="M16 6h.01"/>
+                    <path d="M12 6h.01"/>
+                    <path d="M12 10h.01"/>
+                    <path d="M12 14h.01"/>
+                    <path d="M16 10h.01"/>
+                    <path d="M16 14h.01"/>
+                    <path d="M8 10h.01"/>
+                    <path d="M8 14h.01"/>
+                </svg>
+            </div>
+            <h1>Add New Ward</h1>
+            <p>Fill in the details to register a new hospital ward</p>
+        </div>
+
+        <!-- Form Card -->
+        <div class="form-card">
+            <div class="gradient-border"></div>
+            <form id="wardForm" action="{% url 'add_Ward' %}" method="post">
+                            {% csrf_token %}
+                <!-- Ward Name & Number Row -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="wardName">Ward Name <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="16" height="20" x="4" y="2" rx="2" ry="2"/>
+                                <path d="M9 22v-4h6v4"/>
+                                <path d="M8 6h.01"/>
+                                <path d="M16 6h.01"/>
+                                <path d="M12 6h.01"/>
+                            </svg>
+                            <input type="text" id="wardName" name="wardName" placeholder="e.g., Emergency Ward" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="wardNumber">Ward Number <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <span class="input-icon hash">#</span>
+                            <input type="text" id="wardNumber" name="wardNumber" placeholder="e.g., W-101" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floor & Capacity Row -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="floor">Floor / Location <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <input type="text" id="floor" name="floor" placeholder="e.g., 3rd Floor, East Wing" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capacity">Bed Capacity <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                            <input type="number" id="capacity" name="capacity" placeholder="e.g., 20" min="1" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Department -->
+                <div class="form-group">
+                    <label for="department">Department / Type <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/>
+                            <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/>
+                            <circle cx="20" cy="10" r="2"/>
+                        </svg>
+                    <select id="department" name="department" required>
+                        <option  disabled selected name="General"></option>
+                        <option value="ICU">ICU</option>
+                        <option value="General">General</option>
+                        <option value="Private">Private</option>
+                        <option value="Emergency">Emergency</option>
+                        <option value="OT">OT</option>
+                        <option value="Maternity">Maternity</option>
+                    </select>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon textarea-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" x2="8" y1="13" y2="13"/>
+                            <line x1="16" x2="8" y1="17" y2="17"/>
+                            <line x1="10" x2="8" y1="9" y2="9"/>
+                        </svg>
+                        <textarea id="description" name="description" rows="4" placeholder="Add any additional notes or special requirements for this ward..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="form-group">
+                    <label>Status</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="status" value="active" checked>
+                            <span>Active</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="status" value="inactive">
+                            <span>Inactive</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="status" value="maintenance">
+                            <span>Under Maintenance</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">Add Ward</button>
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+            </form>
+
+            <!-- Success Message (hidden by default) -->
+            <div class="success-overlay" id="successOverlay">
+                <div class="success-content">
+                    <div class="success-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                            <path d="m9 12 2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <h3>Ward Added Successfully!</h3>
+                    <p>The new ward has been registered in the system.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="info-card">
+            <div class="info-icon">i</div>
+            <div class="info-content">
+                <h4>Important Information</h4>
+                <p>Please ensure all ward details are accurate before submission. Fields marked with <span class="required">*</span> are required.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form submission handler
+        document.getElementById('wardForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                wardName: document.getElementById('wardName').value,
+                wardNumber: document.getElementById('wardNumber').value,
+                floor: document.getElementById('floor').value,
+                capacity: document.getElementById('capacity').value,
+                department: document.getElementById('department').value,
+                description: document.getElementById('description').value,
+                status: document.querySelector('input[name="status"]:checked').value
+            };
+            
+            // Log form data (in production, this would be sent to a server)
+            console.log('Form submitted:', formData);
+            
+            // Show success overlay
+            const successOverlay = document.getElementById('successOverlay');
+            successOverlay.classList.add('show');
+            
+            // Hide success overlay and reset form after 2 seconds
+            setTimeout(function() {
+                successOverlay.classList.remove('show');
+                document.getElementById('wardForm').reset();
+            }, 2000);
+        });
+
+        // Optional: Add input validation feedback
+        const requiredInputs = document.querySelectorAll('input[required], select[required]');
+
+        requiredInputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.value.trim() === '') {
+                    this.style.borderColor = '#ef4444';
+                } else {
+                    this.style.borderColor = '#d1d5db';
+                }
+            });
+            
+            input.addEventListener('input', function() {
+                if (this.value.trim() !== '') {
+                    this.style.borderColor = '#10b981';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
