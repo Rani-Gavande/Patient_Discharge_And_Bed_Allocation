@@ -4,7 +4,7 @@ A Hospital Management System designed to streamline patient discharge and bed al
 ## Project Overview
 A hospital management system for patient discharge and bed allocation.
 ## flowchart of project
-![flowchat]("C:\Users\Gurukrupa\Pictures\flowchat.png")
+![flowchat]("flowchat.png")
 ## Screenshots
 
 
